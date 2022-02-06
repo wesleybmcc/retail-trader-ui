@@ -1,0 +1,17 @@
+<div class="flex-column block_container"> 
+    <div>
+        <div class="flex-row">
+            <div class="flex-row" style="flex:1">
+                <div class="difference-container" [ngClass]="{'below_zero': difference < 0, 'above_zero': difference > 0 }">
+                    {{difference}}
+                </div>
+                <div [ngClass]="(difference > 0 && difference < alertThreshold) || (difference < 0 && difference > -alertThreshold) ? 
+                    'difference-proximity-on': 'difference-proximity-off'" 
+                    class="font-9">ALERT
+                </div>
+            </div>
+            <div class="pivot-field">{{pivotField.toUpperCase()}}</div>
+        </div>
+        <div class="font-10 color-light-gray">{{priceLevel | number : '1.2-5'}}</div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="page-container" *ngIf="pivotListItem">
+    <app-price-difference 
+        [symbol]='pivotListItem.symbol' 
+        [pivotField]="pivotListItem.pivotField" 
+        [pivotName]="pivotListItem.pivotName"
+        [viewMode]="'line'"
+        [priceLevel]="pivotListItem.value"></app-price-difference>
+</div>

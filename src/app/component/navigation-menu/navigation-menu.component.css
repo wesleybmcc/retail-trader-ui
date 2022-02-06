@@ -1,0 +1,14 @@
+.navigation-menu {
+    padding: 10px 10px;
+}
+
+.navigation-menu-item {
+    padding: 10px 10px;
+    width: 55px;
+    color: #ababab;
+}
+
+.navigation-menu-item:hover {
+    cursor: pointer;
+    color: black;
+}

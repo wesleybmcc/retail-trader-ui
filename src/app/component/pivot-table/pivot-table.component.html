@@ -1,0 +1,13 @@
+<div *ngIf="instrument" class="flex-row">
+    <div style="width:200px;">
+        <app-bid-ask 
+            [symbol]='instrument.symbol' 
+            [description]='instrument.description'></app-bid-ask>
+    </div>
+    <div class="flex-row" *ngFor="let pivotField of pivotFields; let i = index">
+        <app-price-difference 
+            [symbol]='instrument.symbol' 
+            [pivotField]="pivotField" 
+            [priceLevel]="getPivotLevel(pivotField)"></app-price-difference>
+    </div>
+</div>

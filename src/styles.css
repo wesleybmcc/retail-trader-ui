@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 5 auto;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #232323;
+}
+
+.page-container {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.flex-row {
+    display: flex;    
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;    
+    flex-direction: column;
+}
+
+.font-9 {
+    font-size: 8px;
+}
+.font-10 {
+    font-size: 10px;
+}
+.font-12 {
+    font-size: 12px;
+}
+
+.ml-7 {
+    margin-left: 7px;
+}
+
+.color-light-gray {
+    color: #ababab;
+}

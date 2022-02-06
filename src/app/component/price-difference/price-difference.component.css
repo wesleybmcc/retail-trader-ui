@@ -1,0 +1,53 @@
+.block_container {
+    margin-right:5px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.block_container > div:nth-child(1) {
+    padding:5px 10px;
+    border:solid 1px #343434;
+    letter-spacing: .05em;
+}
+
+.difference-container {
+    font-size:14px;
+    padding-bottom:6px;
+    padding-right:5px;    
+}
+
+.symbol-container {
+    width: 120px;
+}
+.above_zero {
+    color: rgb(74, 219, 137);
+}
+
+.below_zero {
+    color: indianred;
+}
+
+.difference-proximity-on {
+    display: block;
+    color: #fff;
+    letter-spacing: .1em;
+    position: relative;
+    font-size:12px;
+    top: 2px;
+    left: 5px;
+    animation: blinker 2s linear infinite;
+}
+
+.difference-proximity-off {
+    display: none;    
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.pivot-field {
+    font-size:9px;color:#efefef;opacity: .5;
+}

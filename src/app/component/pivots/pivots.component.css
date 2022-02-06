@@ -1,0 +1,14 @@
+.pivot-table {
+    padding: 5px 0px;
+}
+
+.pivot-container {
+    margin-bottom: 10px;
+}
+
+.pivot-name {
+    padding: 10px 0px;
+    font-size: 22px;
+    color: #cdcdcd;
+    font-variant: small-caps;
+}
