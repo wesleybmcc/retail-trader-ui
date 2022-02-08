@@ -34,13 +34,5 @@ export class PriceDifferenceComponent implements OnInit {
         }  
       }
     });
-
-    this.priceWatchService.priceWatchEventEmitter.subscribe((bidAskResponse: BidAskResponse) => {
-      const pipFactor: number = this.symbol.indexOf('JPY') >= 0 ? 1000 : 100000;
-      if(bidAskResponse.instrument === this.symbol) {        
-        this.actualPrice = bidAskResponse.ask.close;
-        this.difference = Math.round((this.actualPrice  - this.priceLevel) * pipFactor);
-      }
-    });
   }
 }

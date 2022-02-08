@@ -30,7 +30,6 @@ export class PivotListComponent {
   @Input() 
   public set pivotName(value: string) {
     this._pivotName = value;
-    this.loadPivotSettings();
   }
   
   public get pivotName(): string { return this._pivotName; }
@@ -38,19 +37,4 @@ export class PivotListComponent {
   pivotListItem: PivotListItem;
 
   constructor(private pivotService: PivotService) { }
-
-  private loadPivotSettings() {
-    // this.pivotService.getPivot(this.instrument.symbol, this.pivotName, '').subscribe((pivot: Pivot) => {
-    //   debugger;
-    // });
-    // const pivotSetting: PivotSetting = this.pivotService.getPivot(this.instrument.symbol, this.pivotName);  
-    // for(const [key,value] of Object.entries(pivotSetting.pivotLevel!)) {
-    //   this.pivotListItem = {
-    //   symbol: this.instrument.symbol, 
-    //   pivotName: this.pivotName, 
-    //   pivotField: 
-    //   key, value: 
-    //   value, difference: 0 };            
-    // }
-  }
 }

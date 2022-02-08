@@ -29,13 +29,6 @@ export class BidAskComponent implements OnInit {
         }
       }
     });
-
-    this.priceWatchService.priceWatchEventEmitter.subscribe((bidAskResponse: BidAskResponse) => {
-      if(this.symbol === bidAskResponse.instrument) {
-        this.bid = bidAskResponse.bid.close;
-        this.ask = bidAskResponse.ask.close;
-      }
-    });
   }
 
 }

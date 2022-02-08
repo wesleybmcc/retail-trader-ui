@@ -14,7 +14,6 @@ export class PriceWatchService {
   instruments: Instrument[] = [];
   instrumentTypes: InstrumentType[] = [];
   bidAsks: BidAsk[] = [];
-  priceWatchEventEmitter: EventEmitter<BidAskResponse> = new EventEmitter<BidAskResponse>();
   messageQueueEventEmitter: EventEmitter<BidAskMessage> = new EventEmitter<BidAskMessage>();
   
   constructor(private instrumentService: InstrumentService,
@@ -36,10 +35,7 @@ export class PriceWatchService {
     connection.on("SendMessage", (data: string, message: string) => {      
       const dataSplit: string[] = message.split(' ');
       const bidAskMessage: BidAskMessage = {symbol: dataSplit[0], isBid: dataSplit[1].toLowerCase() === 'bid', value: parseFloat(dataSplit[2])};
-      debugger;
       this.messageQueueEventEmitter.emit(bidAskMessage);
-      //const bidAskResponse: BidAskResponse = new BidAskResponse(bidAskResponseJSON);
-      //this.priceWatchEventEmitter.emit(bidAskResponse);
     });
 
     this.livePriceService.start().subscribe((data:any) => {

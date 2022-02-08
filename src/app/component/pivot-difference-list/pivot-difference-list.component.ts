@@ -54,16 +54,6 @@ export class PivotDifferenceListComponent implements OnInit {
         }
       });
     });
-
-    this.priceWatchService.priceWatchEventEmitter.subscribe((bidAskResponse: BidAskResponse) => {
-      const pipFactor: number = bidAskResponse.instrument.indexOf('JPY') >= 0 ? 1000 : 100000;
-      const pivotDifferences: PivotDifference[] = this.pivotDifferences.filter(pd => pd.symbol === bidAskResponse.instrument);
-      pivotDifferences.forEach((pivotDifferences: PivotDifference) => {
-        pivotDifferences.difference = Math.round((bidAskResponse.ask.close  - pivotDifferences.priceLevel) * pipFactor);
-        pivotDifferences.absDifference = Math.abs(pivotDifferences.difference);
-        pivotDifferences.show = pivotDifferences.absDifference < 75;
-      });
-    });
   }
 
   private createPivotDifferences() {
