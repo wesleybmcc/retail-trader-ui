@@ -1,11 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Instrument, InstrumentType } from '../model/instrument';
 import { BidAsk, BidAskResponse, OHLC } from '../model/price';
 import { InstrumentService } from './instrument.service';
 import { environment } from 'src/environments/environment';
 import * as signalR from '@microsoft/signalr';
 import { LivePriceService } from './live-price.service';
+import { BidAskMessage } from '../model/bidAskMessage';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ export class PriceWatchService {
   instrumentTypes: InstrumentType[] = [];
   bidAsks: BidAsk[] = [];
   priceWatchEventEmitter: EventEmitter<BidAskResponse> = new EventEmitter<BidAskResponse>();
+  messageQueueEventEmitter: EventEmitter<BidAskMessage> = new EventEmitter<BidAskMessage>();
   
   constructor(private instrumentService: InstrumentService,
     private livePriceService: LivePriceService) {
@@ -32,9 +33,13 @@ export class PriceWatchService {
       return console.error(err.toString());
     });
 
-    connection.on("SendMessage", (data: string, bidAskResponseJSON: string) => {
-      const bidAskResponse: BidAskResponse = new BidAskResponse(bidAskResponseJSON);
-      this.priceWatchEventEmitter.emit(bidAskResponse);
+    connection.on("SendMessage", (data: string, message: string) => {      
+      const dataSplit: string[] = message.split(' ');
+      const bidAskMessage: BidAskMessage = {symbol: dataSplit[0], isBid: dataSplit[1].toLowerCase() === 'bid', value: parseFloat(dataSplit[2])};
+      debugger;
+      this.messageQueueEventEmitter.emit(bidAskMessage);
+      //const bidAskResponse: BidAskResponse = new BidAskResponse(bidAskResponseJSON);
+      //this.priceWatchEventEmitter.emit(bidAskResponse);
     });
 
     this.livePriceService.start().subscribe((data:any) => {

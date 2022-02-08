@@ -1,0 +1,8 @@
+<div class="pivot-container" *ngFor="let pivotName of pivotNames">
+    <div class="pivot-name">{{pivotName}} Pivot Levels</div>
+    <div class="flex-row pivot-table" *ngFor="let instrument of instruments; let i = index">
+        <app-pivot-table [instrument]="instrument" [pivotSettings]="getPivotSettings(instrument.symbol, pivotName)"
+            [pivotName]="pivotName">
+        </app-pivot-table>
+    </div>
+</div>

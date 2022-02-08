@@ -1,0 +1,10 @@
+<div class="flex-column" *ngFor="let pivotDifference of pivotDifferences">
+    <div *ngIf="pivotDifference.show" class="flex-row" style="font-size:12px;">
+        <div style="width:80px">{{pivotDifference.symbol}}</div>
+        <div style="width:40px">{{pivotDifference.pivotLevelName}}</div>
+        <div style="width:80px">{{pivotDifference.pivotName}}</div>
+        <div style="width:80px">{{pivotDifference.priceLevel| number : '1.2-5'}}</div>
+        <div style="width:80px">{{pivotDifference.difference| number : '1.2-5'}}</div>
+        <div style="width:80px">{{pivotDifference.absDifference| number : '1.2-5'}}</div>
+    </div>
+</div>
