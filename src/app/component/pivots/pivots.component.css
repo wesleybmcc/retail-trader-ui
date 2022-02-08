@@ -1,14 +1,11 @@
-.pivot-table {
-    padding: 5px 0px;
-}
-
-.pivot-container {
-    margin-bottom: 10px;
-}
-
-.pivot-name {
-    padding: 10px 0px;
-    font-size: 22px;
-    color: #cdcdcd;
+.pivot-view-change-link {
+    padding:4px 4px;
+    text-decoration: none;
+    opacity: .7;
     font-variant: small-caps;
+    color: #ffffff;
+}
+
+.pivot-view-change-link:hover {
+    text-decoration: underline;
 }

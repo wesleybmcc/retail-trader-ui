@@ -15,6 +15,8 @@ import { PivotTableComponent } from './component/pivot-table/pivot-table.compone
 import { PivotListComponent } from './component/pivot-list/pivot-list.component';
 import { TruthyPipe } from './pipe/truthy.pipe';
 import { ActiveAlertComponent } from './component/active-alert/active-alert.component';
+import { PivotDifferenceListComponent } from './component/pivot-difference-list/pivot-difference-list.component';
+import { PivotTableViewComponent } from './component/pivot-table-view/pivot-table-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ActiveAlertComponent } from './component/active-alert/active-alert.comp
     PivotTableComponent,
     PivotListComponent,
     TruthyPipe,
-    ActiveAlertComponent
+    ActiveAlertComponent,
+    PivotDifferenceListComponent,
+    PivotTableViewComponent
   ],
   imports: [
     BrowserModule,

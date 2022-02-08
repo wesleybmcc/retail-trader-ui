@@ -1,36 +1,28 @@
-<!-- <div class="page-container">
-    <div *ngIf="viewType === 'table'">
-        <div class="pivot-container" *ngFor="let pivotName of pivotNames">
-            <div class="pivot-name">{{pivotName}} Pivot Levels</div>
-            <div class="flex-row pivot-table" *ngFor="let instrument of instruments; let i = index">
-                <app-pivot-table [instrument]="instrument"
-                    [pivotSettings]="getPivotSettings(instrument.symbol, pivotName)" [pivotName]="pivotName">
-                </app-pivot-table>
-            </div>
-        </div>
+<div class="flex-column">
+    <div class="flex-row">
+        <div class="pivot-view-change-link" (click)="selectedPivotViewIndex = 0">table</div>
+        <div class="pivot-view-change-link" (click)="selectedPivotViewIndex = 1">summary</div>
+        <div class="pivot-view-change-link" (click)="selectedPivotViewIndex = 2">view 1</div>
+        <div class="pivot-view-change-link" (click)="selectedPivotViewIndex = 3">view 2</div>
     </div>
-</div> -->
-<div (click)="pivotView = 'TypeScript'">click</div>
-<div style="color:#ffffff">
-    <div [ngSwitch]="pivotView">
-        <ng-template [ngSwitchCase]="'table'">
-            <div class="pivot-container" *ngFor="let pivotName of pivotNames">
-                <div class="pivot-name">{{pivotName}} Pivot Levels</div>
-                <div class="flex-row pivot-table" *ngFor="let instrument of instruments; let i = index">
-                    <app-pivot-table [instrument]="instrument" [pivotSettings]="getPivotSettings(instrument.symbol, pivotName)"
-                        [pivotName]="pivotName">
-                    </app-pivot-table>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template [ngSwitchCase]="'TypeScript'">
-            <p>view 2</p>
-        </ng-template>
-        <ng-template [ngSwitchCase]="'JavaScript'">
-            <p>view 3</p>
-        </ng-template>
-        <ng-template [ngSwitchDefault]>
-            <p>view 4</p>
-        </ng-template>
+    <div style="color:#ffffff">
+        <div [ngSwitch]="pivotViews[selectedPivotViewIndex]">
+            <ng-template [ngSwitchCase]="'table'">
+                <app-pivot-table-view [instruments]="instruments" [pivotNames]="pivotNames"></app-pivot-table-view>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'summary'">
+                <app-pivot-difference-list [instruments]="instruments" [pivotNames]="pivotNames">
+                </app-pivot-difference-list>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'view1'">
+                <p>view 1</p>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'view2'">
+                <p>view 2</p>
+            </ng-template>
+            <ng-template [ngSwitchDefault]>
+                <p>view 3</p>
+            </ng-template>
+        </div>
     </div>
 </div>
