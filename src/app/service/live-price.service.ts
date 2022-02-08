@@ -1,42 +1,49 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as signalR from '@microsoft/signalr';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Instrument, InstrumentType } from '../model/instrument';
+import { BidAsk } from '../model/price';
+import { InstrumentService } from './instrument.service';
 import { environment } from 'src/environments/environment';
+import * as signalR from '@microsoft/signalr';
+import { BidAskMessage } from '../model/bidAskMessage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LivePriceService {
+  instruments: Instrument[] = [];
+  instrumentTypes: InstrumentType[] = [];
+  bidAsks: BidAsk[] = [];
+  messageQueueEventEmitter: EventEmitter<BidAskMessage> = new EventEmitter<BidAskMessage>();
+  
+  constructor(private instrumentService: InstrumentService) {
+    this.loadData();
+    
+    const connection = new signalR.HubConnectionBuilder()
+      .configureLogging(signalR.LogLevel.Information)
+      .withUrl(environment.socketUrl + 'notify')
+      .build();
 
-  private dataUrl = environment.socketUrl + 'Data';
-  private weatherUrl = environment.baseUrl + 'WeatherForecast';
+      console.log(environment.socketUrl);
+    connection.start().then(function () {
+      console.log('SignalR Connected!');
+    }).catch(function (err) {
+      return console.error(err.toString());
+    });
 
-  constructor(private http: HttpClient) { }
-
-  start() {
-    return this.http.get<void>(this.dataUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
+    connection.on("SendMessage", (data: string, message: string) => {      
+      const dataSplit: string[] = message.split(' ');
+      const bidAskMessage: BidAskMessage = {symbol: dataSplit[0], isBid: dataSplit[1].toLowerCase() === 'bid', value: parseFloat(dataSplit[2])};
+      this.messageQueueEventEmitter.emit(bidAskMessage);
+    });
   }
 
-  start2() {
-    return this.http.get<any>(this.weatherUrl)
-    .pipe(
-      catchError(this.handleError)
-    );
+  public loadData() {
+    this.instrumentService.getInstruments().subscribe((instruments: Instrument[]) => {
+      this.instruments = instruments;
+    });
+    this.instrumentService.getInstrumentTypes().subscribe((instrumentTypes: InstrumentType[]) => {
+      this.instrumentTypes = instrumentTypes;
+    });
+  }
 
-  }
-  private handleError(err: any) {
-    let errorMessage: string;
-    if (err.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
-    }
-    console.error(err);
-    return throwError(errorMessage);
-  }
 }

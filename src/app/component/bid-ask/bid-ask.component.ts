@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BidAskMessage } from 'src/app/model/bidAskMessage';
-import { PriceWatchService } from 'src/app/service/price-watch.service';
-import { BidAsk, BidAskResponse } from '../../model/price';
-
+import { LivePriceService } from 'src/app/service/live-price.service';
 
 @Component({
   selector: 'app-bid-ask',
@@ -16,10 +14,10 @@ export class BidAskComponent implements OnInit {
   bid: number = 0;
   ask: number = 0;
   
-  constructor(private priceWatchService: PriceWatchService) { }
+  constructor(private livePriceService: LivePriceService) { }
 
   ngOnInit(): void {
-    this.priceWatchService.messageQueueEventEmitter.subscribe((bidAskMessage: BidAskMessage) => {
+    this.livePriceService.messageQueueEventEmitter.subscribe((bidAskMessage: BidAskMessage) => {
       if(bidAskMessage.symbol === this.symbol) {
         if(bidAskMessage.isBid) {
           this.bid = bidAskMessage.value;

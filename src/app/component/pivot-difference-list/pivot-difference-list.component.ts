@@ -3,9 +3,8 @@ import { BidAskMessage } from 'src/app/model/bidAskMessage';
 import { Instrument } from 'src/app/model/instrument';
 import { Pivot } from 'src/app/model/pivot';
 import { PIVOT_NAME } from 'src/app/model/pivotLevel';
-import { BidAskResponse } from 'src/app/model/price';
+import { LivePriceService } from 'src/app/service/live-price.service';
 import { PivotService } from 'src/app/service/pivot.service';
-import { PriceWatchService } from 'src/app/service/price-watch.service';
 
 interface PivotDifference {
   symbol: string;
@@ -34,7 +33,7 @@ export class PivotDifferenceListComponent implements OnInit {
   pivotDifferences: PivotDifference[] = new Array<PivotDifference>();
   pivots: Pivot[] = new Array<Pivot>();
 
-  constructor(private priceWatchService: PriceWatchService, private pivotService: PivotService) { }
+  constructor(private livePriceService: LivePriceService, private pivotService: PivotService) { }
 
   ngOnInit(): void {
 
@@ -43,7 +42,7 @@ export class PivotDifferenceListComponent implements OnInit {
         this.createPivotDifferences();
       });
 
-    this.priceWatchService.messageQueueEventEmitter.subscribe((bidAskMessage: BidAskMessage) => {
+    this.livePriceService.messageQueueEventEmitter.subscribe((bidAskMessage: BidAskMessage) => {
       const pipFactor: number = bidAskMessage.symbol.indexOf('JPY') >= 0 ? 1000 : 100000;
       const pivotDifferences: PivotDifference[] = this.pivotDifferences.filter(pd => pd.symbol === bidAskMessage.symbol);
       pivotDifferences.forEach((pivotDifferences: PivotDifference) => {

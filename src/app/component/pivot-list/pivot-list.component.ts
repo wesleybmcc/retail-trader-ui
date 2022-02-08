@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Instrument } from 'src/app/model/instrument';
-import { Pivot } from 'src/app/model/pivot';
 import { PivotService } from 'src/app/service/pivot.service';
-import { PivotSetting } from '../../model/pivotLevel';
 
 interface PivotListItem {
   symbol: string;
