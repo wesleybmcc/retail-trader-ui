@@ -1,8 +1,6 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, Input } from '@angular/core';
 import { BidAskMessage } from 'src/app/model/bidAskMessage';
-import { PriceWatchService } from 'src/app/service/price-watch.service';
-import { BidAskResponse } from '../../model/price';
+import { LivePriceService } from 'src/app/service/live-price.service';
 
 @Component({
   selector: 'app-price-difference',
@@ -22,10 +20,10 @@ export class PriceDifferenceComponent implements OnInit {
   showHover: boolean = false;
   hoverMessage: string = '';
   
-  constructor(private priceWatchService: PriceWatchService) { }
+  constructor(private livePriceService: LivePriceService) { }
 
   ngOnInit(): void {
-    this.priceWatchService.messageQueueEventEmitter.subscribe((bidAskMessage: BidAskMessage) => {
+    this.livePriceService.messageQueueEventEmitter.subscribe((bidAskMessage: BidAskMessage) => {
       const pipFactor: number = this.symbol.indexOf('JPY') >= 0 ? 1000 : 100000;
       if(bidAskMessage.symbol === this.symbol) {      
         if(!bidAskMessage.isBid) {

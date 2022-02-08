@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PriceWatchService } from './service/price-watch.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { PriceWatchService } from './service/price-watch.service';
 export class AppComponent implements OnInit {
   title = 'ng-app-template';
 
-  constructor(private priceWatchService: PriceWatchService) {}
+  constructor() {}
 
   ngOnInit() {
 
